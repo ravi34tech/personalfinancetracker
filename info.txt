@@ -1,0 +1,21 @@
+
+https://stackoverflow.com/questions/14460231/how-do-you-import-multiple-javascript-files-in-html-index-file-without-the-bloat
+https://jscompress.com/
+
+
+
+-- Connect to postgres -----
+ 
+https://www3.ntu.edu.sg/home/ehchua/programming/sql/PostgreSQL_GetStarted.html
+
+postgres=# create database personal_finance;
+postgres=# create user ravi with password 'ravi123';
+
+grant all privileges on database personal_finance to ravi;
+GRANT ALL PRIVILEGES ON SCHEMA public TO ravi;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ravi;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ravi;
+GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO ravi;  
+
+
+http://localhost:8800/pfintrack/trxnHistory/

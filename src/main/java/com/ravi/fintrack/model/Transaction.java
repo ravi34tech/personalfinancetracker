@@ -4,11 +4,12 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="TRANSACTION")
+@Table(name="PERSONAL_FINANCE_TRANSACTION")
 public class Transaction extends BaseModel {
 
 	private static final long serialVersionUID = 1L;
@@ -26,7 +27,7 @@ public class Transaction extends BaseModel {
 	private int trxType;
 	
 	@OneToOne
-	@Column(name="CATEGEORY_ID")
+	@JoinColumn(name="CATEGEORY_ID")
 	private Category category;
 
 	public String getDescription() {

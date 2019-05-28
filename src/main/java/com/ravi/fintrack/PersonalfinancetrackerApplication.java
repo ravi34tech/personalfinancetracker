@@ -8,6 +8,7 @@ public class PersonalfinancetrackerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PersonalfinancetrackerApplication.class, args);
+		System.out.println("Loaded application Personal finance sucessfully...!");
 	}
 
 }

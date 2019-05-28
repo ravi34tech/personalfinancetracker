@@ -1,5 +1,6 @@
 package com.ravi.fintrack.controller;
 
+import com.ravi.fintrack.bean.FinanceTrackBean;
 import com.ravi.fintrack.model.Category;
 import com.ravi.fintrack.model.SearchCriteria;
 import com.ravi.fintrack.model.Transaction;
@@ -9,7 +10,7 @@ public interface IFinanceTracker {
 
 	// Transactions....
 	
-	Response saveTransaction(Transaction trxn);
+	Response saveTransaction(FinanceTrackBean bean);
 	
 	Response deleteTransaction(Integer id);
 	
@@ -20,13 +21,15 @@ public interface IFinanceTracker {
 	
 	// Category....
 	
-	Response saveCategory(Category category);
+	Response saveCategory(FinanceTrackBean bean);
 	
 	Response deleteCategory(Integer id);
 	
 	Response getAllCategories();
 	
 	Response filterCategory(String name);
+
+	Response filterCategory(FinanceTrackBean bean);
 	
 	
 }

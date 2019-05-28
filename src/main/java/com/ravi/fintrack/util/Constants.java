@@ -16,6 +16,8 @@ public interface Constants {
 	
 	String SUCCESS_DELETE = "Deleted successfully ...!";
 	
+	String RETRIVED_RECORDS = "Retrived records...!";
+	
 	String NO_RECORDS = "No records found ...!";
 	
 	String EXCEPTION = "Exception occured ";
