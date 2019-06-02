@@ -106,7 +106,7 @@ public class FinanceTrackerService implements IFinanceTrackerService {
 
 	@Override
 	public Response filterCategory(FinanceTrackBean bean) throws Exception {
-		return buildCategoryResponse(categoryDao.findByNameAndCode(bean.getCategoryName(),
+		return buildCategoryResponse(categoryDao.findByCriteria(bean.getCategoryName(),
 				bean.getCategoryColor()));
 	}
 

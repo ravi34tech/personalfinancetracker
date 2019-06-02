@@ -92,20 +92,25 @@
 				// show loading message
 				$("#jqGrid")[0].grid.beginReq();
                 $.ajax({
-                    url: "http://localhost:8800/pfintrack/trxnHistoryData/"+monthId,
+                    url: "http://localhost:2222/pfintrack/trxnHistoryData/"+monthId,
                     success: function (result) {
-                    	console.info(result.trxnList);
-                        for (var i = 0; i < result.trxnList.length; i++) {
-                            var item = result.trxnList[i];
-                            gridArrayData.push({
-                            	description: item.description,
-                            	amount: item.amount,
-                            	purchasedDate: item.purchasedDate,
-                            	trxType: item.trxType,
-                            	categoryName: item.category.name,
-                            	id : item.id
-                            });                            
-                        }
+	                   if(result.status == "SUCCESS"){
+	                    	console.info(result.trxnList);
+	                        for (var i = 0; i < result.trxnList.length; i++) {
+	                            var item = result.trxnList[i];
+	                            gridArrayData.push({
+	                            	description: item.description,
+	                            	amount: item.amount,
+	                            	purchasedDate: item.purchasedDate,
+	                            	trxType: item.trxType,
+	                            	categoryName: item.category.name,
+	                            	id : item.id
+	                            });                            
+	                        }
+                    	}else{
+                    		console.info(result);
+                    		gridArrayData.push(result.trxnList);
+                    	}
 						// set the new data
 						$("#jqGrid").jqGrid('setGridParam', { data: gridArrayData});
 						// hide the show message

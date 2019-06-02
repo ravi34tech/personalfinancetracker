@@ -16,7 +16,7 @@ public interface ICategoryDao extends JpaRepository<Category, Integer> {
 	
 	List<Category> findByColorCode(String colorCode);
 	
-	@Query("select c from category c where c.name like :name and c.colorCode like :colorCode")
-	List<Category> findByNameAndCode(@Param("name") String name, @Param("colorCode") String colorCode);
+	@Query("select c from Category c where c.name like :name and c.colorCode like :colorCode")
+	List<Category> findByCriteria(@Param("name") String name, @Param("colorCode") String colorCode);
 
 }

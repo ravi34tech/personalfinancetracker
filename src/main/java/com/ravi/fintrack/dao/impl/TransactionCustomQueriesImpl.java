@@ -17,21 +17,23 @@ import javax.persistence.criteria.Root;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ravi.fintrack.dao.TransactionCustomQueries;
+import com.ravi.fintrack.model.SearchCriteria;
 import com.ravi.fintrack.model.Transaction;
 
-public class TrasactionDaoImpl {
+public class TransactionCustomQueriesImpl implements TransactionCustomQueries {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(TrasactionDaoImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TransactionCustomQueriesImpl.class);
 
 	@PersistenceContext
     private EntityManager entityManager;
 	
-	public TrasactionDaoImpl() {
+	public TransactionCustomQueriesImpl() {
 		// TODO Auto-generated constructor stub
 	}
 
-	//@Override
-	public List<Transaction> findByProperties(Map<String, Object> propMap) throws Exception {
+	@Override
+	public List<Transaction> searchTransactionByCriteria(Map<String, Object> propMap) throws Exception {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Transaction> query = cb.createQuery(Transaction.class);
 		Root<Transaction> trcnRoot = query.from(Transaction.class);
@@ -60,5 +62,13 @@ public class TrasactionDaoImpl {
 
 		return entityManager.createQuery(query).getResultList();
 	}
+
+	@Override
+	public List<Transaction> searchTransactionByCriteria(SearchCriteria criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }
