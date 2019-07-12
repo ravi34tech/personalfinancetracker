@@ -23,6 +23,11 @@ public class FinanceViewController {
 	public String login() {
 		return "login";
 	}
+	
+	@GetMapping(value = "/home")
+	public String home() {
+		return "home";
+	}
 
 	@GetMapping(value = "/newTrxn")
 	public String newTransaction(Model model) {
@@ -34,7 +39,7 @@ public class FinanceViewController {
 		return "transaction";
 	}
 
-	@GetMapping(value = "/newCategory")
+	@GetMapping(value = "/category")
 	public String newCategory() {
 		return "category";
 	}
@@ -44,5 +49,15 @@ public class FinanceViewController {
 		return "transactionHistory";
 	}
 	
+	@GetMapping(value = "/budget")
+	public String budget() {
+		return "budget";
+	}
+
+	@GetMapping(value = "/graphs")
+	public String graph() {
+		return "graphs";
+	}
+
 
 }

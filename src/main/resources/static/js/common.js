@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="required/ui.jqgrid.css" /> 
 <link rel="stylesheet" type="text/css" media="screen" href="required/jquery-ui.css" /> 
 */	
-jQuery(document).ready(function(){
+/*jQuery(document).ready(function(){
     $.getScript('/js/jquery/jquery.jqGrid.js');
     $.getScript('/js/jquery/grid.locale-en.js');
     $.getScript('/js/jquery/jquery-ui.js');
@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
     $.getScript('/css/jquery/ui.jqgrid.css');
     $.getScript('/css/common.css');
 });
-
+*/
 
 /*<!-- The jQuery library is a prerequisite for all jqSuite products -->
 <script type="text/ecmascript" src="/js/jquery/jquery.js"></script> 
@@ -35,3 +35,21 @@ jQuery(document).ready(function(){
 
 <link rel="stylesheet" type="text/css" media="screen" href="/css/common.css" />
 	*/
+
+var oldAction = "";
+
+function loadPage(actionName){
+	 $.ajax({
+         url: "http://localhost:2222/pfintrack/"+actionName,
+         success: function (result) {
+        	 $("#FORM").html(result);
+        	 if(actionName != "newTrxn"){
+	        	 if(oldAction.length > 0){
+	        		 $("#"+oldAction).removeClass("active");
+	        	 }
+	        	 $("#"+actionName).addClass("active");
+	        	 oldAction = actionName;
+        	 }
+         }
+       });
+}

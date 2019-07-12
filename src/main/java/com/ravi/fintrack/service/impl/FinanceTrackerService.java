@@ -59,9 +59,11 @@ public class FinanceTrackerService implements IFinanceTrackerService {
 			Calendar cal = Calendar.getInstance();
 			cal.set(Calendar.MONTH, monthNumber);
 			cal.set(Calendar.DATE,1);
+			cal.setTimeInMillis(0);
 			Date startDate = cal.getTime();
 			cal.set(Calendar.MONTH, monthNumber+1);
 			cal.set(Calendar.DATE,1);
+			cal.setTimeInMillis(0);
 			Date endDate = cal.getTime();
 			System.out.println("Start Date : "+startDate+", End date : "+endDate);
 			List<Transaction> list = transactionDao.findByPurchasedDateBetween(startDate, endDate);

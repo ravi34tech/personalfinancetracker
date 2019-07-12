@@ -71,7 +71,7 @@
                     },
                     {
 						label: 'Action',
-                        name: 'id',
+                        name: '',
                         width: 50,
 						formatter: actionLink
                     }
@@ -103,8 +103,8 @@
 	                            	amount: item.amount,
 	                            	purchasedDate: item.purchasedDate,
 	                            	trxType: item.trxType,
-	                            	categoryName: item.category.name,
-	                            	id : item.id
+	                            	categoryName: item.category.name
+	                            //	id : item.id
 	                            });                            
 	                        }
                     	}else{
@@ -145,7 +145,7 @@
 				return '<div><span class="ui-icon ui-icon-pencil" title="Edit"></span> &nbsp;&nbsp;<span class="ui-icon ui-icon-trash" title="Delete" onclick="openDeleteDialog('+cellValue+');"></span><div>';
 			}
 			
-			fetchGridData(0);		            
+			fetchGridData(6);		            
 
         });
 

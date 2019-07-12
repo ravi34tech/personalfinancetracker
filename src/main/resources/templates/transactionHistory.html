@@ -1,31 +1,42 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 
 <script type="text/ecmascript" src="/js/jquery/jquery.js"></script>
-<!-- <script type="text/ecmascript" src="/js/common.js"></script> -->
-<script type="text/ecmascript" src="/js/jquery/jquery.jqGrid.js"></script>
+<!-- <script type="text/ecmascript" src="/js/common.js"></script>
+ --><script type="text/ecmascript" src="/js/jquery/jquery.jqGrid.js"></script>
 <script type="text/ecmascript" src="/js/jquery/grid.locale-en.js"></script>   
 <script type="text/ecmascript" src="/js/jquery/jquery-ui.js"></script>
 
 <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui.jqgrid.css" /> 
 <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/jquery-ui.css" /> 
 <link rel="stylesheet" type="text/css" media="screen" href="/css/common.css" />
-
+<!--
 <meta charset="ISO-8859-1">
 <title>Personal finance tracker</title>
 </head>
 
 <body style="background-image: url(/css/jquery/images/img_bg_1.jpg);">
 
-<div>
-	<input type="button" value="Add Transaction" style="align-self: left;" class="ui-button ui-corner-all ui-widget" st>
+
+<div class="topnav">
+  <a href="trxnHistory" class="active">Transactions</a>
+  <a href="budget">Budget</a>
+  <a href="graphs">Graphs</a>
+  <a href="category">Category</a>
 </div>
-	<br />
-<div id="GRID_DIV">
-	<table id="jqGrid"></table>
-    <div id="jqGridPager"></div> 
-</div>
-<script type="text/ecmascript" src="/js/trxnhistory.js"></script>		
-</body>
-</html>
+
+<div style="padding-left:16px"> -->
+	<div>
+		<input type="button" value="Add Transaction" style="align-self: left;" class="ui-button ui-corner-all ui-widget" onclick="loadPage('newTrxn');" />
+	</div>
+		<br />
+	<div id="GRID_DIV">
+		<table id="jqGrid"></table>
+	    <div id="jqGridPager"></div> 
+	</div>
+<script type="text/ecmascript" src="/js/trxnhistory.js"></script>
+<!-- </div>
+		
+</body> -->
+</html> 
