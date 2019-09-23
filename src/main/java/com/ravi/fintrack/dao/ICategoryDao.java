@@ -12,11 +12,14 @@ import com.ravi.fintrack.model.Category;
 @Repository
 public interface ICategoryDao extends JpaRepository<Category, Integer> {
 
-	List<Category> findByName(String name);
+	List<Category> findByNameAndDeleted(String name, boolean deleted);
 	
 	List<Category> findByColorCode(String colorCode);
 	
-	@Query("select c from Category c where c.name like :name and c.colorCode like :colorCode")
+	@Query("select c from Category c where c.name like :name and c.colorCode like :colorCode and c.deleted = false")
 	List<Category> findByCriteria(@Param("name") String name, @Param("colorCode") String colorCode);
+	
+	@Query("select c from Category c where c.deleted = false")
+	List<Category> getActiveCategories();	
 
 }

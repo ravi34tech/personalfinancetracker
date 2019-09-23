@@ -3,10 +3,13 @@ package com.ravi.fintrack.controller.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ravi.fintrack.bean.FinanceTrackBean;
@@ -19,6 +22,7 @@ import com.ravi.fintrack.util.Response;
 
 @RestController
 @RequestMapping(value="/pfintrack")
+@CrossOrigin
 public class FinanceTrackerController implements IFinanceTracker {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(FinanceTrackerController.class);
@@ -32,8 +36,8 @@ public class FinanceTrackerController implements IFinanceTracker {
 		try {
 			response = financeTrackerService.getTransactionByMonth(monthId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error(Constants.EXCEPTION+" : ",e.getMessage());
+			response = CommonUtil.buildFailureResponse(e);
 		}
 		
 		return response;
@@ -41,13 +45,13 @@ public class FinanceTrackerController implements IFinanceTracker {
 	
 	@Override
 	@PostMapping(value="/saveTrxn")
-	public Response saveTransaction(FinanceTrackBean bean) {
+	public Response saveTransaction(@RequestBody FinanceTrackBean bean) {
 		LOGGER.info("Saving transaction...");
 		Response response = new Response();
 		try {
 			response = financeTrackerService.saveTransaction(bean);
 		} catch (Exception e) {
-			LOGGER.error(Constants.EXCEPTION+" : "+e.getMessage());
+			LOGGER.error(Constants.EXCEPTION+" : ",e.getMessage());
 			response = CommonUtil.buildFailureResponse(e);
 		}
 		return response;
@@ -55,11 +59,11 @@ public class FinanceTrackerController implements IFinanceTracker {
 
 	@Override
 	@GetMapping(value="/deleteTrxn")
-	public Response deleteTransaction(Integer id) {
+	public Response deleteTransaction(@RequestParam Integer id) {
 		try {
 			return financeTrackerService.deleteTransaction(id);
 		} catch (Exception e) {
-			LOGGER.error(Constants.EXCEPTION+" : "+e.getMessage());
+			LOGGER.error(Constants.EXCEPTION+" : ",e.getMessage());
 			return CommonUtil.buildFailureResponse(e);
 		}
 	}
@@ -70,40 +74,40 @@ public class FinanceTrackerController implements IFinanceTracker {
 		try {
 			return financeTrackerService.getTransactionByMonth(monthNumber);
 		} catch (Exception e) {
-			LOGGER.error(Constants.EXCEPTION+" : "+e.getMessage());
+			LOGGER.error(Constants.EXCEPTION+" : ",e.getMessage());
 			return CommonUtil.buildFailureResponse(e);
 		}
 	}
 
 	@Override
 	@PostMapping(value="/filterTrxn")
-	public Response filterTransactions(SearchCriteria criteria) {
+	public Response filterTransactions(@RequestBody SearchCriteria criteria) {
 		try {
 			return financeTrackerService.filterTransactions(criteria);
 		} catch (Exception e) {
-			LOGGER.error(Constants.EXCEPTION+" : "+e.getMessage());
+			LOGGER.error(Constants.EXCEPTION+" : ",e.getMessage());
 			return CommonUtil.buildFailureResponse(e);
 		}
 	}
 
 	@Override
 	@PostMapping(value="/saveCategory")
-	public Response saveCategory(FinanceTrackBean bean) {
+	public Response saveCategory(@RequestBody FinanceTrackBean bean) {
 		try {
 			return financeTrackerService.saveCategory(bean);
 		} catch (Exception e) {
-			LOGGER.error(Constants.EXCEPTION+" : "+e.getMessage());
+			LOGGER.error(Constants.EXCEPTION+" : ",e.getMessage());
 			return CommonUtil.buildFailureResponse(e);
 		}
 	}
 
 	@Override
-	@GetMapping(value="/deleteCategory")
-	public Response deleteCategory(Integer id) {
+	@GetMapping(value="/deleteCategory/{id}")
+	public Response deleteCategory(@PathVariable Integer id) {
 		try {
 			return financeTrackerService.deleteCategory(id);
 		} catch (Exception e) {
-			LOGGER.error(Constants.EXCEPTION+" : "+e.getMessage());
+			LOGGER.error(Constants.EXCEPTION+" : ",e.getMessage());
 			return CommonUtil.buildFailureResponse(e);
 		}
 	}
@@ -114,29 +118,29 @@ public class FinanceTrackerController implements IFinanceTracker {
 		try {
 			return financeTrackerService.getAllCategories();
 		} catch (Exception e) {
-			LOGGER.error(Constants.EXCEPTION+" : "+e.getMessage());
+			LOGGER.error(Constants.EXCEPTION+" : ",e.getMessage());
 			return CommonUtil.buildFailureResponse(e);
 		}
 	}
 	
 	@Override
 	@GetMapping(value="/filterCategory")
-	public Response filterCategory(String name) {
+	public Response filterCategory(@RequestParam String name) {
 		try {
 			return financeTrackerService.filterCategory(name);
 		} catch (Exception e) {
-			LOGGER.error(Constants.EXCEPTION+" : "+e.getMessage());
+			LOGGER.error(Constants.EXCEPTION+" : ",e.getMessage());
 			return CommonUtil.buildFailureResponse(e);
 		}
 	}
 	
 	@Override
 	@PostMapping(value="/filterCategory")
-	public Response filterCategory(FinanceTrackBean bean) {
+	public Response filterCategory(@RequestBody FinanceTrackBean bean) {
 		try {
 			return financeTrackerService.filterCategory(bean);
 		} catch (Exception e) {
-			LOGGER.error(Constants.EXCEPTION+" : "+e.getMessage());
+			LOGGER.error(Constants.EXCEPTION+" : ",e.getMessage());
 			return CommonUtil.buildFailureResponse(e);
 		}
 	}

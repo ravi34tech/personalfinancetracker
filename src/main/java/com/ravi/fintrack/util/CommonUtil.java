@@ -41,7 +41,7 @@ public interface CommonUtil {
 		FinanceTrackBean bean = new FinanceTrackBean();
 		bean.setId(model.getId());
 		bean.setAmount(model.getAmount());
-		bean.setCategory(model.getCategory().getId());
+		bean.setCategoryId(model.getCategory().getId());
 		bean.setDescription(model.getDescription());
 		bean.setPurchasedDate(model.getPurchasedDate());
 		bean.setTrxType(model.getTrxType());

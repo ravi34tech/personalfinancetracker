@@ -14,7 +14,7 @@ public class FinanceTrackBean {
 	
 	private int trxType;
 	
-	private Integer category;
+	private Integer categoryId;
 	
 	private String categoryName;
 	
@@ -76,12 +76,12 @@ public class FinanceTrackBean {
 		this.trxType = trxType;
 	}
 
-	public Integer getCategory() {
-		return category;
+	public Integer getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategory(Integer category) {
-		this.category = category;
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
 	}
 
 

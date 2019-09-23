@@ -1,9 +1,7 @@
 package com.ravi.fintrack.controller;
 
 import com.ravi.fintrack.bean.FinanceTrackBean;
-import com.ravi.fintrack.model.Category;
 import com.ravi.fintrack.model.SearchCriteria;
-import com.ravi.fintrack.model.Transaction;
 import com.ravi.fintrack.util.Response;
 
 public interface IFinanceTracker {

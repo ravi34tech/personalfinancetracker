@@ -1,13 +1,14 @@
 package com.ravi.fintrack.model;
 
 import java.io.Serializable;
-import java.sql.Date;
-
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,14 +21,16 @@ public class BaseModel implements Serializable{
 	@Id
 	@Column(name="ID", unique=true, nullable=false)
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	protected Integer id;
 	
-	@Column(name="CREATED_DATE",updatable=false,nullable=false)
+	@Column(name="CREATED_DATE",updatable=false)
 	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDate;
 	
-	@Column(name="UPDATED_DATE",nullable=false)
-	@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="UPDATED_DATE",insertable=false)
+	@UpdateTimestamp	
 	private Date updatedDate;
 
 	public Integer getId() {

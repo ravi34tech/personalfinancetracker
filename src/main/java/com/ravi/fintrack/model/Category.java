@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.ravi.fintrack.bean.FinanceTrackBean;
+
 
 @Entity
 @Table(name="PERSONAL_FINANCE_CATEGORY")
@@ -17,6 +19,10 @@ public class Category extends BaseModel {
 	@Column(name="COLOR_CODE")
 	private String colorCode;
 	
+	@Column(name="IS_DELETED", columnDefinition="boolean default false")
+	private boolean deleted;
+	
+
 	public Category() {
 		
 	}
@@ -24,6 +30,12 @@ public class Category extends BaseModel {
 	public Category(String name, String colorCode) {
 		this.name = name;
 		this.colorCode = colorCode;
+	}
+	
+	public Category(FinanceTrackBean bean) {
+		this.name = bean.getCategoryName();
+		this.colorCode = bean.getCategoryColor();
+		this.id = bean.getCategoryId();
 	}
 
 	public String getName() {
@@ -40,6 +52,14 @@ public class Category extends BaseModel {
 
 	public void setColorCode(String colorCode) {
 		this.colorCode = colorCode;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 }

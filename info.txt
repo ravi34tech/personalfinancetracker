@@ -18,7 +18,7 @@ GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ravi;
 GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO ravi;  
 
 
-http://localhost:8800/pfintrack/trxnHistory/
+http://localhost:2222/pfintrack/
 
 https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
    4.6. Custom Implementations for Spring Data Repositories

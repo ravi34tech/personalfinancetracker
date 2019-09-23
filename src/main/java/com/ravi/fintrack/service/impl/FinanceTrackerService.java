@@ -2,12 +2,16 @@ package com.ravi.fintrack.service.impl;
 
 import static com.ravi.fintrack.util.CommonUtil.buildFailureResponse;
 import static com.ravi.fintrack.util.CommonUtil.buildSuccessResponse;
+import static com.ravi.fintrack.util.CommonUtil.isNotNullOrEmpty;
+import static com.ravi.fintrack.util.CommonUtil.convertToModel;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +22,14 @@ import com.ravi.fintrack.model.Category;
 import com.ravi.fintrack.model.SearchCriteria;
 import com.ravi.fintrack.model.Transaction;
 import com.ravi.fintrack.service.IFinanceTrackerService;
-import com.ravi.fintrack.util.CommonUtil;
+
 import com.ravi.fintrack.util.Constants;
 import com.ravi.fintrack.util.Response;
 
 @Service
 public class FinanceTrackerService implements IFinanceTrackerService {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(FinanceTrackerService.class);
 
 	@Autowired
 	private ICategoryDao categoryDao;
@@ -33,8 +39,8 @@ public class FinanceTrackerService implements IFinanceTrackerService {
 	
 	@Override
 	public Response saveTransaction(FinanceTrackBean bean) throws Exception {
-		Transaction trxn = CommonUtil.convertToModel(bean);
-		trxn.setCategory(categoryDao.getOne(bean.getCategory()));
+		Transaction trxn = convertToModel(bean);
+		trxn.setCategory(categoryDao.getOne(bean.getCategoryId()));
 		transactionDao.save(trxn);
 		return buildSuccessResponse(trxn, trxn.getCategory(), Constants.SUCCESS_SAVED);
 	}
@@ -77,15 +83,29 @@ public class FinanceTrackerService implements IFinanceTrackerService {
 		if(criteria == null) {
 			response = buildSuccessResponse(transactionDao.findAll(),null, ""); 
 		}
-		
 		return response;
 	}
 
+	
+/*	 =================================================================
+								Category Calls 
+	 =================================================================
+*/
+	
 	@Override
 	public Response saveCategory(FinanceTrackBean bean) throws Exception {
-		Category cat = new Category(bean.getCategoryName(),bean.getCategoryColor());
-		categoryDao.save(cat);
-		return buildSuccessResponse(null, cat, Constants.SUCCESS_SAVED);
+		Category cat = new Category(bean);
+		try {
+			if(bean.getCategoryId() == null && isNotNullOrEmpty(categoryDao.findByNameAndDeleted(bean.getCategoryName(), false))){
+				return buildFailureResponse("Duplicate category name : "+bean.getCategoryName());
+			}
+			categoryDao.save(cat);
+		}catch (Exception e) {
+			LOGGER.error("Error while saving the reocord : ",e);
+			return buildFailureResponse(e);
+		}
+		return buildSuccessResponse(null, cat, 
+				bean.getCategoryId() == null ? Constants.SUCCESS_SAVED: Constants.SUCCESS_UPDATE);
 	}
 	
 	@Override
@@ -96,14 +116,16 @@ public class FinanceTrackerService implements IFinanceTrackerService {
 
 	@Override
 	public Response deleteCategory(Integer id) throws Exception {
-		categoryDao.deleteById(id);
+		Category entity = findCatgoryById(id);
+		entity.setDeleted(true);
+		categoryDao.save(entity);
 		return buildSuccessResponse(Constants.SUCCESS_DELETE);
 	}
 
 	@Override
 	public Response getAllCategories() throws Exception {
-		List<Category> categoryList = categoryDao.findAll();
-		return CommonUtil.buildSuccessResponse(null, categoryList, Constants.RETRIVED_RECORDS);
+		List<Category> categoryList = categoryDao.getActiveCategories();
+		return buildSuccessResponse(null, categoryList, Constants.RETRIVED_RECORDS);
 	}
 
 	@Override
@@ -114,18 +136,18 @@ public class FinanceTrackerService implements IFinanceTrackerService {
 
 	@Override
 	public Response filterCategory(String name) throws Exception {
-		return buildCategoryResponse(categoryDao.findByName(name));
+		return buildCategoryResponse(categoryDao.findByNameAndDeleted(name,false));
 	}
 	
 	private Response buildCategoryResponse(List<Category> categoryList) {
-		if(CommonUtil.isNotNullOrEmpty(categoryList)) {
+		if(isNotNullOrEmpty(categoryList)) {
 			return buildSuccessResponse(null, categoryList, Constants.RETRIVED_RECORDS);
 		}
 		return buildFailureResponse(Constants.NO_RECORDS);
 	}
 	
 	private Response buildTransactionResponse(List<Transaction> trxnList) {
-		if(CommonUtil.isNotNullOrEmpty(trxnList)) {
+		if(isNotNullOrEmpty(trxnList)) {
 			return buildSuccessResponse(trxnList, null, Constants.RETRIVED_RECORDS);
 		}
 		return buildFailureResponse(Constants.NO_RECORDS);
