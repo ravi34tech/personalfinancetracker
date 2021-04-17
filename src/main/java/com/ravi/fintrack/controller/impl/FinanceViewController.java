@@ -27,6 +27,7 @@ public class FinanceViewController {
 	@GetMapping(value = "/home")
 	public String home() {
 		LOGGER.info("HAI");
+		LOGGER.info("Modified the home method hai...");
 		return "home";
 	}
 
@@ -60,5 +61,22 @@ public class FinanceViewController {
 		return "graphs";
 	}
 
+	@GetMapping(value = "/graphs")
+	public String graph2() {
+		return "graphs";
+	}
+	@GetMapping(value = "/graphs")
+	public String graph3() {
+		return "graphs";
+	}
 
+	@GetMapping(value = "/graphs")
+	public String graph4() {
+		return "graphs";
+	}
+	@GetMapping(value = "/graphs")
+	public String graph5() {
+		return "graphs";
+	}
+	
 }
