@@ -63,6 +63,18 @@ public class FinanceViewController {
 	public String graph2() {
 		return "graphs";
 	}
+	@GetMapping(value = "/graphs")
+	public String graph3() {
+		return "graphs";
+	}
 
+	@GetMapping(value = "/graphs")
+	public String graph4() {
+		return "graphs";
+	}
+	@GetMapping(value = "/graphs")
+	public String graph5() {
+		return "graphs";
+	}
 	
 }
