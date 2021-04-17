@@ -26,6 +26,7 @@ public class FinanceViewController {
 	
 	@GetMapping(value = "/home")
 	public String home() {
+		LOGGER.info("HAI");
 		return "home";
 	}
 
